@@ -32,7 +32,7 @@ class SpecialtyController extends Controller
      *     path="/api/specialties",
      *     @OA\Response(response="200", description="Lista as especialidades"),
      * ),
-     * 
+     *
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,13 +53,13 @@ class SpecialtyController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(
      *          response="200",
      *          description="Cria uma nova especialidades"
      *      ),
      * ),
-     * 
+     *
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -79,7 +79,7 @@ class SpecialtyController extends Controller
      *     path="/api/specialties/{id}",
      *     @OA\Response(response="200", description="Lista uma especialidade"),
      * ),
-     * 
+     *
      * Display the specified resource.
      *
      * @param  int  $id
@@ -102,10 +102,10 @@ class SpecialtyController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(response="200", description="Atualiza uma especialidades"),
      * ),
-     * 
+     *
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -123,10 +123,10 @@ class SpecialtyController extends Controller
      *     tags={"Especialidades"},
      *     summary="Deleta uma especialidades",
      *     description="Deleta uma especialidades",
-     *     path="%swagger.destroy.path%",
+     *     path="/api/specialties/{id}",
      *     @OA\Response(response="200", description="Deleta uma especialidades"),
      * ),
-     * 
+     *
      * Remove the specified resource from storage.
      *
      * @param  int  $id

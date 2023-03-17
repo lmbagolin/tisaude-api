@@ -32,7 +32,7 @@ class HealthPlanController extends Controller
      *     path="/api/health-plans",
      *     @OA\Response(response="200", description="Lista de Planos de Saúde"),
      * ),
-     * 
+     *
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,13 +53,13 @@ class HealthPlanController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(
      *          response="200",
      *          description="Cria um novo Plano de Saúde"
      *      ),
      * ),
-     * 
+     *
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -79,7 +79,7 @@ class HealthPlanController extends Controller
      *     path="/api/health-plans/{id}",
      *     @OA\Response(response="200", description="Exibe um Plano de Saúde"),
      * ),
-     * 
+     *
      * Display the specified resource.
      *
      * @param  int  $id
@@ -102,10 +102,10 @@ class HealthPlanController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(response="200", description="Atualiza um Plano de Saúde"),
      * ),
-     * 
+     *
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -123,10 +123,10 @@ class HealthPlanController extends Controller
      *     tags={"Planos de Saúde"},
      *     summary="Deleta um Plano de Saúde",
      *     description="Deleta um Plano de Saúde",
-     *     path="%swagger.destroy.path%",
+     *     path="/api/health-plans/{id}",
      *     @OA\Response(response="200", description="Deleta um Plano de Saúde"),
      * ),
-     * 
+     *
      * Remove the specified resource from storage.
      *
      * @param  int  $id

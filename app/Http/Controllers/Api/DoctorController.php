@@ -32,7 +32,7 @@ class DoctorController extends Controller
      *     path="/api/doctors",
      *     @OA\Response(response="200", description="Lista de Médicos"),
      * ),
-     * 
+     *
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,13 +53,13 @@ class DoctorController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(
      *          response="200",
      *          description="Cria um novo Médico"
      *      ),
      * ),
-     * 
+     *
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -79,7 +79,7 @@ class DoctorController extends Controller
      *     path="/api/doctors/{id}",
      *     @OA\Response(response="200", description="Exibe um Médico"),
      * ),
-     * 
+     *
      * Display the specified resource.
      *
      * @param  int  $id
@@ -102,10 +102,10 @@ class DoctorController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(response="200", description="Atualiza um Médico"),
      * ),
-     * 
+     *
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -123,10 +123,10 @@ class DoctorController extends Controller
      *     tags={"Médicos"},
      *     summary="Deleta um Médico",
      *     description="Deleta um Médico",
-     *     path="%swagger.destroy.path%",
+     *     path="/api/doctors/{id}",
      *     @OA\Response(response="200", description="Deleta um Médico"),
      * ),
-     * 
+     *
      * Remove the specified resource from storage.
      *
      * @param  int  $id

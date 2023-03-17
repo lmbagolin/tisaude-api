@@ -32,7 +32,7 @@ class PacientController extends Controller
      *     path="/api/pacients",
      *     @OA\Response(response="200", description="Lista de Pacientes"),
      * ),
-     * 
+     *
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,13 +53,13 @@ class PacientController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(
      *          response="200",
      *          description="Cria um novo Paciente"
      *      ),
      * ),
-     * 
+     *
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -79,7 +79,7 @@ class PacientController extends Controller
      *     path="/api/pacients/{id}",
      *     @OA\Response(response="200", description="Exibe um Paciente"),
      * ),
-     * 
+     *
      * Display the specified resource.
      *
      * @param  int  $id
@@ -102,10 +102,10 @@ class PacientController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(response="200", description="Atualiza um Paciente"),
      * ),
-     * 
+     *
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -123,10 +123,10 @@ class PacientController extends Controller
      *     tags={"Pacientes"},
      *     summary="Deleta um Paciente",
      *     description="Deleta um Paciente",
-     *     path="%swagger.destroy.path%",
+     *     path="/api/pacients/{id}",
      *     @OA\Response(response="200", description="Deleta um Paciente"),
      * ),
-     * 
+     *
      * Remove the specified resource from storage.
      *
      * @param  int  $id

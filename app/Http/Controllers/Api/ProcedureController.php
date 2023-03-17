@@ -32,7 +32,7 @@ class ProcedureController extends Controller
      *     path="/api/procedures",
      *     @OA\Response(response="200", description="Lista de Procedimentos"),
      * ),
-     * 
+     *
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,13 +53,13 @@ class ProcedureController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(
      *          response="200",
      *          description="Cria um novo Procedimento"
      *      ),
      * ),
-     * 
+     *
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -79,7 +79,7 @@ class ProcedureController extends Controller
      *     path="/api/procedures/{id}",
      *     @OA\Response(response="200", description="Exibe um procedimento"),
      * ),
-     * 
+     *
      * Display the specified resource.
      *
      * @param  int  $id
@@ -102,10 +102,10 @@ class ProcedureController extends Controller
      *         in="query",
      *         description="Nome",
      *         required=true,
-     *     ),     
+     *     ),
      *     @OA\Response(response="200", description="Atualiza um procedimento"),
      * ),
-     * 
+     *
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -123,10 +123,10 @@ class ProcedureController extends Controller
      *     tags={"Procedimentos"},
      *     summary="Deleta um procedimento",
      *     description="Deleta um procedimento",
-     *     path="%swagger.destroy.path%",
+     *     path="/api/procedures/{id}",
      *     @OA\Response(response="200", description="Deleta um procedimento"),
      * ),
-     * 
+     *
      * Remove the specified resource from storage.
      *
      * @param  int  $id

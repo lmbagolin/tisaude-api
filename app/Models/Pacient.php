@@ -29,4 +29,9 @@ class Pacient extends Model
         'birthday' => 'nullable|date',
         'phones' => 'nullable|array'
     ];
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'pacient_id');
+    }
 }

@@ -3,6 +3,66 @@ info:
   title: 'TiSaude API'
   version: '0.1'
 paths:
+  /api/appointments:
+    get:
+      tags:
+        - Consultas
+      summary: 'Lista de Consultas'
+      description: 'Lista de Consultas'
+      operationId: 812c4f15927f3d0e3e959538a6f1104b
+      responses:
+        '200':
+          description: 'Lista de Consultas'
+    post:
+      tags:
+        - Consultas
+      summary: 'Cria um nova Consulta'
+      description: 'Cria um nova Consulta'
+      operationId: 2b481df28ec53d2afb2ec7c9a3a77846
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Cria um nova Consulta'
+  '/api/appointments/{id}':
+    get:
+      tags:
+        - Consultas
+      summary: 'Exibe uma Consulta'
+      description: 'Exibe uma Consulta'
+      operationId: cca217dc71eae262de1fe09f314a4948
+      responses:
+        '200':
+          description: 'Exibe uma Consulta'
+    put:
+      tags:
+        - Consultas
+      summary: 'Atualiza uma Consulta'
+      description: 'Atualiza uma Consulta'
+      operationId: 56cd9e193d590ed31b28bf8fe7162e70
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Atualiza uma Consulta'
+  '%swagger.destroy.path%':
+    delete:
+      tags:
+        - Consultas
+      summary: 'Deleta uma Consulta'
+      description: 'Deleta uma Consulta'
+      operationId: 366bdc3d8a8a005160cd6a0ba9d46651
+      responses:
+        '200':
+          description: 'Deleta uma Consulta'
   /api/auth/login:
     post:
       tags:
@@ -34,6 +94,242 @@ paths:
       responses:
         '200':
           description: 'Invalida o token de acesso do usuário'
+  /api/doctors:
+    get:
+      tags:
+        - Médicos
+      summary: 'Lista de Médicos'
+      description: 'Lista de Médicos'
+      operationId: 4479c235c75c92e2425c15211470f478
+      responses:
+        '200':
+          description: 'Lista de Médicos'
+    post:
+      tags:
+        - Médicos
+      summary: 'Cria um novo Médico'
+      description: 'Cria um novo Médico'
+      operationId: ee9dd1ffdbcab8d6d47b2dd0bd06ed9b
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Cria um novo Médico'
+  '/api/doctors/{id}':
+    get:
+      tags:
+        - Médicos
+      summary: 'Exibe um Médico'
+      description: 'Exibe um Médico'
+      operationId: d38f21421c3eca3294015240d2d7e1ad
+      responses:
+        '200':
+          description: 'Exibe um Médico'
+    put:
+      tags:
+        - Médicos
+      summary: 'Atualiza um Médico'
+      description: 'Atualiza um Médico'
+      operationId: dd6e159937989a95449bd7ebab306776
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Atualiza um Médico'
+    delete:
+      tags:
+        - Médicos
+      summary: 'Deleta um Médico'
+      description: 'Deleta um Médico'
+      operationId: 04bc41e2ab78cd139c19896955c012af
+      responses:
+        '200':
+          description: 'Deleta um Médico'
+  /api/health-plans:
+    get:
+      tags:
+        - 'Planos de Saúde'
+      summary: 'Lista de Planos de Saúde'
+      description: 'Lista de Planos de Saúde'
+      operationId: c42399d781b6dc6f9f5dda34c5ee6067
+      responses:
+        '200':
+          description: 'Lista de Planos de Saúde'
+    post:
+      tags:
+        - 'Planos de Saúde'
+      summary: 'Cria um novo Plano de Saúde'
+      description: 'Cria um novo Plano de Saúde'
+      operationId: 256b9f08a9bac77e63fde8fd5308ff3e
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Cria um novo Plano de Saúde'
+  '/api/health-plans/{id}':
+    get:
+      tags:
+        - 'Planos de Saúde'
+      summary: 'Exibe um Plano de Saúde'
+      description: 'Exibe um Plano de Saúde'
+      operationId: 7f01b4dd94277aed2d32692c26851714
+      responses:
+        '200':
+          description: 'Exibe um Plano de Saúde'
+    put:
+      tags:
+        - 'Planos de Saúde'
+      summary: 'Atualiza um Plano de Saúde'
+      description: 'Atualiza um Plano de Saúde'
+      operationId: 85ee0cab27cff3c6c98a5b729d63d27e
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Atualiza um Plano de Saúde'
+    delete:
+      tags:
+        - 'Planos de Saúde'
+      summary: 'Deleta um Plano de Saúde'
+      description: 'Deleta um Plano de Saúde'
+      operationId: 380b50e73f926dc40f1aa04faf45e4dd
+      responses:
+        '200':
+          description: 'Deleta um Plano de Saúde'
+  /api/pacients:
+    get:
+      tags:
+        - Pacientes
+      summary: 'Lista de Pacientes'
+      description: 'Lista de Pacientes'
+      operationId: 3549af4e35db6d775f55ecf368fec281
+      responses:
+        '200':
+          description: 'Lista de Pacientes'
+    post:
+      tags:
+        - Pacientes
+      summary: 'Cria um novo Paciente'
+      description: 'Cria um novo Paciente'
+      operationId: 56efce158a5c319d998932b7a6ceec84
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Cria um novo Paciente'
+  '/api/pacients/{id}':
+    get:
+      tags:
+        - Pacientes
+      summary: 'Exibe um Paciente'
+      description: 'Exibe um Paciente'
+      operationId: 2ea05843b7246dcc33e2df47ae72f2e2
+      responses:
+        '200':
+          description: 'Exibe um Paciente'
+    put:
+      tags:
+        - Pacientes
+      summary: 'Atualiza um Paciente'
+      description: 'Atualiza um Paciente'
+      operationId: 6631e4ca15795ee7c1bea2ffbf998558
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Atualiza um Paciente'
+    delete:
+      tags:
+        - Pacientes
+      summary: 'Deleta um Paciente'
+      description: 'Deleta um Paciente'
+      operationId: 8ce10996f68a2007ba5cf78c2b96cd0d
+      responses:
+        '200':
+          description: 'Deleta um Paciente'
+  /api/procedures:
+    get:
+      tags:
+        - Procedimentos
+      summary: 'Lista de Procedimentos'
+      description: 'Lista de Procedimentos'
+      operationId: 7d6ba815589b5f6a122b0c3362e8b177
+      responses:
+        '200':
+          description: 'Lista de Procedimentos'
+    post:
+      tags:
+        - Procedimentos
+      summary: 'Cria um novo Procedimento'
+      description: 'Cria um novo Procedimento'
+      operationId: 65ae2b00841b4a1ab0896811636e8065
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Cria um novo Procedimento'
+  '/api/procedures/{id}':
+    get:
+      tags:
+        - Procedimentos
+      summary: 'Exibe um procedimento'
+      description: 'Exibe um procedimento'
+      operationId: 7d7cd20f72364dc472c949ad5465383b
+      responses:
+        '200':
+          description: 'Exibe um procedimento'
+    put:
+      tags:
+        - Procedimentos
+      summary: 'Atualiza um procedimento'
+      description: 'Atualiza um procedimento'
+      operationId: b02480753e102fe3bca0473abf88b626
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Atualiza um procedimento'
+    delete:
+      tags:
+        - Procedimentos
+      summary: 'Deleta um procedimento'
+      description: 'Deleta um procedimento'
+      operationId: a9c66777a1bdff4ce6549c220a927bfa
+      responses:
+        '200':
+          description: 'Deleta um procedimento'
   /api/specialties:
     get:
       tags:
@@ -84,13 +380,12 @@ paths:
       responses:
         '200':
           description: 'Atualiza uma especialidades'
-  '%swagger.destroy.path%':
     delete:
       tags:
         - Especialidades
       summary: 'Deleta uma especialidades'
       description: 'Deleta uma especialidades'
-      operationId: 6acc97d2b39e4b277ea8732043f49afd
+      operationId: 129546f791893572810b5f9006c6de58
       responses:
         '200':
           description: 'Deleta uma especialidades'
