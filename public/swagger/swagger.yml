@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  title: 'TiSaude API'
+  version: '0.1'
+paths:
+  /api/auth/login:
+    post:
+      tags:
+        - Autenticação
+      summary: 'Realiza o login na API'
+      description: 'Retorna informaçõs do usuário e o TOKEN de acesso'
+      operationId: dd51a484b7fa0f97c7680fdbde14cf5f
+      parameters:
+        -
+          name: email
+          in: query
+          description: 'E-mail de credencial de acesso'
+          required: true
+        -
+          name: password
+          in: query
+          description: 'Senha de credencial de acesso'
+          required: true
+      responses:
+        '200':
+          description: 'Retorna informaçõs do usuário e o TOKEN de acesso'
+  /api/auth/logout:
+    post:
+      tags:
+        - Autenticação
+      summary: 'Realiza o logout na API'
+      description: 'Invalida o token de acesso do usuário'
+      operationId: df9bdc6c7a6d9f20b983526b2ec0f698
+      responses:
+        '200':
+          description: 'Invalida o token de acesso do usuário'
+  /api/specialties:
+    get:
+      tags:
+        - Especialidades
+      summary: 'Lista as especialidades'
+      description: 'Lista as especialidades'
+      operationId: 67515fb7ae55ba00df38f3069860eba8
+      responses:
+        '200':
+          description: 'Lista as especialidades'
+    post:
+      tags:
+        - Especialidades
+      summary: 'Cria uma nova especialidades'
+      description: 'Cria uma nova especialidades'
+      operationId: 6ffffb6d94d102c82f2081765ba7bdae
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Cria uma nova especialidades'
+  '/api/specialties/{id}':
+    get:
+      tags:
+        - Especialidades
+      summary: 'Lista uma especialidade'
+      description: 'Lista uma especialidade'
+      operationId: b2731d1377c994d3814193cd2edcc834
+      responses:
+        '200':
+          description: 'Lista uma especialidade'
+    put:
+      tags:
+        - Especialidades
+      summary: 'Atualiza uma especialidades'
+      description: 'Atualiza uma especialidades'
+      operationId: 00783a2640e0f8ddb81ccfeb1cecd2e2
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Atualiza uma especialidades'
+  '%swagger.destroy.path%':
+    delete:
+      tags:
+        - Especialidades
+      summary: 'Deleta uma especialidades'
+      description: 'Deleta uma especialidades'
+      operationId: 6acc97d2b39e4b277ea8732043f49afd
+      responses:
+        '200':
+          description: 'Deleta uma especialidades'
+components:
+  securitySchemes:
+    apiAuth:
+      type: http
+      description: 'Login with email and password to get the authentication token'
+      name: 'Token based Based'
+      in: header
+      bearerFormat: JWT
+      scheme: bearer

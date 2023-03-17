@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Exception;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-
 
 class AuthController extends Controller
 {
@@ -34,6 +28,28 @@ class AuthController extends Controller
     }
 
     /**
+     * @OA\Post(
+     *     tags={"Autenticação"},
+     *     summary="Realiza o login na API",
+     *     description="Retorna informaçõs do usuário e o TOKEN de acesso",
+     *     path="/api/auth/login",
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="E-mail de credencial de acesso",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="query",
+     *         description="Senha de credencial de acesso",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *          response="200",
+     *          description="Retorna informaçõs do usuário e o TOKEN de acesso"
+     *      ),
+     * ),
      * Get a JWT via given credentials.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -66,7 +82,7 @@ class AuthController extends Controller
             //$user->sendEmailVerificationNotification();
             $reponse = [
                 'success' => true,
-                'message' => 'Usuario criado com sucesso. Um email foi encaminhado para verificação.'
+                'message' => 'User created successfully. An email has been sent for verification.'
             ];
 
             DB::commit();
@@ -83,6 +99,16 @@ class AuthController extends Controller
     }
 
     /**
+     * @OA\Post(
+     *     tags={"Autenticação"},
+     *     summary="Realiza o logout na API",
+     *     description="Invalida o token de acesso do usuário",
+     *     path="/api/auth/logout",
+     *     @OA\Response(
+     *          response="200",
+     *          description="Invalida o token de acesso do usuário"
+     *      ),
+     * ),
      * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse

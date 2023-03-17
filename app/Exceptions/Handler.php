@@ -38,4 +38,22 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        $message = $exception->getMessage();
+        $code = $exception->getCode() ? $exception->getCode() : 500;
+
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            $ids = join(",", $exception->getIds());
+            $message = "No results found with id '" . $ids . "'";
+        } else if ($exception instanceof \Illuminate\Database\QueryException) {
+            $code = 500;
+            $message = $exception->getMessage();
+        }
+
+        return response()->json([
+            'responseMessage' => $message
+        ], $code);
+    }
 }
