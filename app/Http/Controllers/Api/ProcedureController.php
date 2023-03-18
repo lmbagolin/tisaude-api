@@ -31,6 +31,7 @@ class ProcedureController extends Controller
      *     description="Lista de Procedimentos",
      *     path="/api/procedures",
      *     @OA\Response(response="200", description="Lista de Procedimentos"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Display a listing of the resource.
@@ -58,6 +59,7 @@ class ProcedureController extends Controller
      *          response="200",
      *          description="Cria um novo Procedimento"
      *      ),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Store a newly created resource in storage.
@@ -77,7 +79,14 @@ class ProcedureController extends Controller
      *     summary="Exibe um procedimento",
      *     description="Exibe um procedimento",
      *     path="/api/procedures/{id}",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do Procedimento",
+     *         required=true,
+     *     ),
      *     @OA\Response(response="200", description="Exibe um procedimento"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Display the specified resource.
@@ -98,12 +107,19 @@ class ProcedureController extends Controller
      *     description="Atualiza um procedimento",
      *     path="/api/procedures/{id}",
      *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do Procedimento",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
      *         name="name",
      *         in="query",
      *         description="Nome",
      *         required=true,
      *     ),
      *     @OA\Response(response="200", description="Atualiza um procedimento"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Update the specified resource in storage.
@@ -124,7 +140,14 @@ class ProcedureController extends Controller
      *     summary="Deleta um procedimento",
      *     description="Deleta um procedimento",
      *     path="/api/procedures/{id}",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do Procedimento",
+     *         required=true,
+     *     ),
      *     @OA\Response(response="200", description="Deleta um procedimento"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Remove the specified resource from storage.

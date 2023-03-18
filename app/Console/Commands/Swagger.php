@@ -19,7 +19,7 @@ class Swagger extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Atualiza a documentação do swagger';
 
     /**
      * Create a new command instance.

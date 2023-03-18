@@ -13,6 +13,9 @@ paths:
       responses:
         '200':
           description: 'Lista de Consultas'
+      security:
+        -
+          bearerAuth: []
     post:
       tags:
         - Consultas
@@ -28,6 +31,9 @@ paths:
       responses:
         '200':
           description: 'Cria um nova Consulta'
+      security:
+        -
+          bearerAuth: []
   '/api/appointments/{id}':
     get:
       tags:
@@ -35,9 +41,18 @@ paths:
       summary: 'Exibe uma Consulta'
       description: 'Exibe uma Consulta'
       operationId: cca217dc71eae262de1fe09f314a4948
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID da Consulta'
+          required: true
       responses:
         '200':
           description: 'Exibe uma Consulta'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Consultas
@@ -53,16 +68,68 @@ paths:
       responses:
         '200':
           description: 'Atualiza uma Consulta'
-  '%swagger.destroy.path%':
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Consultas
       summary: 'Deleta uma Consulta'
       description: 'Deleta uma Consulta'
-      operationId: 366bdc3d8a8a005160cd6a0ba9d46651
+      operationId: 47535f80ea6b8f4309694ff2123524d3
       responses:
         '200':
           description: 'Deleta uma Consulta'
+      security:
+        -
+          bearerAuth: []
+  '/api/appointments/{id}/add-procedures':
+    post:
+      tags:
+        - Consultas
+      summary: 'Adiciona um ou vários procedimentos a uma Consulta'
+      description: 'Adiciona um ou vários procedimentos a uma Consulta'
+      operationId: 3cbe92b2cdcc26801f4dd51912806250
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID da Consulta'
+          required: true
+        -
+          name: 'procedures_ids[]'
+          in: query
+          description: 'IDs dos Procedimentos'
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+            minItems: 1
+      responses:
+        '200':
+          description: 'Procedimentos adicionadas'
+  '/api/doctors/{id}/remove-procedure':
+    post:
+      tags:
+        - Consultas
+      summary: 'Remove um procedimento de uma Consulta'
+      description: 'Remove um procedimento de uma Consulta'
+      operationId: 3fc0decd72a3c83da04272ac38b40530
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID da Consulta'
+          required: true
+        -
+          name: procedure_id
+          in: query
+          description: 'ID do Procedimento'
+          required: true
+      responses:
+        '200':
+          description: 'Procedimento removido'
   /api/auth/login:
     post:
       tags:
@@ -74,16 +141,19 @@ paths:
         -
           name: email
           in: query
-          description: 'E-mail de credencial de acesso'
+          description: 'E-mail de credencial de acesso (user@tisaude.com.br)'
           required: true
         -
           name: password
           in: query
-          description: 'Senha de credencial de acesso'
+          description: 'Senha de credencial de acesso (tisaude123@)'
           required: true
       responses:
         '200':
           description: 'Retorna informaçõs do usuário e o TOKEN de acesso'
+      security:
+        -
+          bearerAuth: []
   /api/auth/logout:
     post:
       tags:
@@ -104,6 +174,9 @@ paths:
       responses:
         '200':
           description: 'Lista de Médicos'
+      security:
+        -
+          bearerAuth: []
     post:
       tags:
         - Médicos
@@ -119,6 +192,9 @@ paths:
       responses:
         '200':
           description: 'Cria um novo Médico'
+      security:
+        -
+          bearerAuth: []
   '/api/doctors/{id}':
     get:
       tags:
@@ -126,9 +202,18 @@ paths:
       summary: 'Exibe um Médico'
       description: 'Exibe um Médico'
       operationId: d38f21421c3eca3294015240d2d7e1ad
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Médico'
+          required: true
       responses:
         '200':
           description: 'Exibe um Médico'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Médicos
@@ -137,6 +222,11 @@ paths:
       operationId: dd6e159937989a95449bd7ebab306776
       parameters:
         -
+          name: id
+          in: path
+          description: 'ID do Médico'
+          required: true
+        -
           name: name
           in: query
           description: Nome
@@ -144,15 +234,99 @@ paths:
       responses:
         '200':
           description: 'Atualiza um Médico'
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Médicos
       summary: 'Deleta um Médico'
       description: 'Deleta um Médico'
       operationId: 04bc41e2ab78cd139c19896955c012af
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Médico'
+          required: true
       responses:
         '200':
           description: 'Deleta um Médico'
+      security:
+        -
+          bearerAuth: []
+  '/api/doctors/{id}/add-specialties':
+    post:
+      tags:
+        - Médicos
+      summary: 'Adiciona uma ou várias especialidades a um Médico'
+      description: 'Adiciona uma ou várias especialidades a um Médico'
+      operationId: c6d845b351eadd89376732277c8c73bd
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Médico'
+          required: true
+        -
+          name: 'specialty_ids[]'
+          in: query
+          description: 'IDs das Especialidades'
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+            minItems: 1
+      responses:
+        '200':
+          description: 'Especialidades adicionadas'
+      security:
+        -
+          bearerAuth: []
+  '/api/doctors/{id}/remove-specialties':
+    post:
+      tags:
+        - Médicos
+      summary: 'Remove uma especialidade de um Médico'
+      description: 'Remove uma especialidade de um Médico'
+      operationId: 545fee247760e172a6fc982d60a25995
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Médico'
+          required: true
+        -
+          name: specialty_id
+          in: query
+          description: 'ID da Especialidade'
+          required: true
+      responses:
+        '200':
+          description: 'Especialidade removida'
+      security:
+        -
+          bearerAuth: []
+  '/api/doctors/{id}/appointments':
+    get:
+      tags:
+        - Médicos
+      summary: 'Exibe as consultas de um Médico'
+      description: 'Exibe as consultas de um Médico'
+      operationId: 5ee5f439de5bb850a0848a40886ae446
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Médico'
+          required: true
+      responses:
+        '200':
+          description: 'Consulta do Médico'
+      security:
+        -
+          bearerAuth: []
   /api/health-plans:
     get:
       tags:
@@ -163,6 +337,9 @@ paths:
       responses:
         '200':
           description: 'Lista de Planos de Saúde'
+      security:
+        -
+          bearerAuth: []
     post:
       tags:
         - 'Planos de Saúde'
@@ -178,6 +355,9 @@ paths:
       responses:
         '200':
           description: 'Cria um novo Plano de Saúde'
+      security:
+        -
+          bearerAuth: []
   '/api/health-plans/{id}':
     get:
       tags:
@@ -185,9 +365,18 @@ paths:
       summary: 'Exibe um Plano de Saúde'
       description: 'Exibe um Plano de Saúde'
       operationId: 7f01b4dd94277aed2d32692c26851714
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Plano de Saúde'
+          required: true
       responses:
         '200':
           description: 'Exibe um Plano de Saúde'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - 'Planos de Saúde'
@@ -196,6 +385,11 @@ paths:
       operationId: 85ee0cab27cff3c6c98a5b729d63d27e
       parameters:
         -
+          name: id
+          in: path
+          description: 'ID do Plano de Saúde'
+          required: true
+        -
           name: name
           in: query
           description: Nome
@@ -203,15 +397,27 @@ paths:
       responses:
         '200':
           description: 'Atualiza um Plano de Saúde'
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - 'Planos de Saúde'
       summary: 'Deleta um Plano de Saúde'
       description: 'Deleta um Plano de Saúde'
       operationId: 380b50e73f926dc40f1aa04faf45e4dd
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Plano de Saúde'
+          required: true
       responses:
         '200':
           description: 'Deleta um Plano de Saúde'
+      security:
+        -
+          bearerAuth: []
   /api/pacients:
     get:
       tags:
@@ -222,6 +428,9 @@ paths:
       responses:
         '200':
           description: 'Lista de Pacientes'
+      security:
+        -
+          bearerAuth: []
     post:
       tags:
         - Pacientes
@@ -237,6 +446,9 @@ paths:
       responses:
         '200':
           description: 'Cria um novo Paciente'
+      security:
+        -
+          bearerAuth: []
   '/api/pacients/{id}':
     get:
       tags:
@@ -244,9 +456,18 @@ paths:
       summary: 'Exibe um Paciente'
       description: 'Exibe um Paciente'
       operationId: 2ea05843b7246dcc33e2df47ae72f2e2
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Paciente'
+          required: true
       responses:
         '200':
           description: 'Exibe um Paciente'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Pacientes
@@ -255,6 +476,11 @@ paths:
       operationId: 6631e4ca15795ee7c1bea2ffbf998558
       parameters:
         -
+          name: id
+          in: path
+          description: 'ID do Paciente'
+          required: true
+        -
           name: name
           in: query
           description: Nome
@@ -262,15 +488,118 @@ paths:
       responses:
         '200':
           description: 'Atualiza um Paciente'
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Pacientes
       summary: 'Deleta um Paciente'
       description: 'Deleta um Paciente'
       operationId: 8ce10996f68a2007ba5cf78c2b96cd0d
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Paciente'
+          required: true
       responses:
         '200':
           description: 'Deleta um Paciente'
+      security:
+        -
+          bearerAuth: []
+  /api/pacients-health-plan:
+    get:
+      tags:
+        - 'Planos de Saúde dos Pacientes'
+      summary: 'Lista os Planos de Saúde dos Pacientes'
+      description: 'Lista Planos de Saúde dos Pacientes'
+      operationId: 6d3158c38d0b449e71a8e14f507f03dd
+      responses:
+        '200':
+          description: 'Lista Planos de Saúde dos Pacientes'
+      security:
+        -
+          bearerAuth: []
+    post:
+      tags:
+        - 'Planos de Saúde dos Pacientes'
+      summary: 'Cria um Planos de Saúde para o Paciente'
+      description: 'Cria um Planos de Saúde para o Paciente'
+      operationId: f2e2cc9e493aa940aeecaf7cda647e35
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+      responses:
+        '200':
+          description: 'Criado com sucesso'
+      security:
+        -
+          bearerAuth: []
+  '/api/pacients-health-plan/{id}':
+    get:
+      tags:
+        - 'Planos de Saúde dos Pacientes'
+      summary: 'Lista o Plano de Saúde do Paciente'
+      description: 'Lista o Plano de Saúde do Paciente'
+      operationId: 81885fd6efa338c33ffcbd577541ba22
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: 'Plano exibido'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - 'Planos de Saúde dos Pacientes'
+      summary: 'Atualiza o Plano de Saúde do Paciente'
+      description: 'Atualiza o Plano de Saúde do Paciente'
+      operationId: e37c7b064e40e969da6ef31652e04fec
+      parameters:
+        -
+          name: name
+          in: query
+          description: Nome
+          required: true
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: 'Plano atualizado'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - 'Planos de Saúde dos Pacientes'
+      summary: 'Deleta o Plano de Saúde do Paciente'
+      description: 'Deleta o Plano de Saúde do Paciente'
+      operationId: b17b79d5692f7cc84c47ba822b8ef0f5
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: 'Plano deletado'
+      security:
+        -
+          bearerAuth: []
   /api/procedures:
     get:
       tags:
@@ -281,6 +610,9 @@ paths:
       responses:
         '200':
           description: 'Lista de Procedimentos'
+      security:
+        -
+          bearerAuth: []
     post:
       tags:
         - Procedimentos
@@ -296,6 +628,9 @@ paths:
       responses:
         '200':
           description: 'Cria um novo Procedimento'
+      security:
+        -
+          bearerAuth: []
   '/api/procedures/{id}':
     get:
       tags:
@@ -303,9 +638,18 @@ paths:
       summary: 'Exibe um procedimento'
       description: 'Exibe um procedimento'
       operationId: 7d7cd20f72364dc472c949ad5465383b
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Procedimento'
+          required: true
       responses:
         '200':
           description: 'Exibe um procedimento'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Procedimentos
@@ -314,6 +658,11 @@ paths:
       operationId: b02480753e102fe3bca0473abf88b626
       parameters:
         -
+          name: id
+          in: path
+          description: 'ID do Procedimento'
+          required: true
+        -
           name: name
           in: query
           description: Nome
@@ -321,15 +670,27 @@ paths:
       responses:
         '200':
           description: 'Atualiza um procedimento'
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Procedimentos
       summary: 'Deleta um procedimento'
       description: 'Deleta um procedimento'
       operationId: a9c66777a1bdff4ce6549c220a927bfa
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do Procedimento'
+          required: true
       responses:
         '200':
           description: 'Deleta um procedimento'
+      security:
+        -
+          bearerAuth: []
   /api/specialties:
     get:
       tags:
@@ -340,6 +701,9 @@ paths:
       responses:
         '200':
           description: 'Lista as especialidades'
+      security:
+        -
+          bearerAuth: []
     post:
       tags:
         - Especialidades
@@ -355,6 +719,9 @@ paths:
       responses:
         '200':
           description: 'Cria uma nova especialidades'
+      security:
+        -
+          bearerAuth: []
   '/api/specialties/{id}':
     get:
       tags:
@@ -362,9 +729,18 @@ paths:
       summary: 'Lista uma especialidade'
       description: 'Lista uma especialidade'
       operationId: b2731d1377c994d3814193cd2edcc834
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID da Especialidade'
+          required: true
       responses:
         '200':
           description: 'Lista uma especialidade'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Especialidades
@@ -373,6 +749,11 @@ paths:
       operationId: 00783a2640e0f8ddb81ccfeb1cecd2e2
       parameters:
         -
+          name: id
+          in: path
+          description: 'ID da Especialidade'
+          required: true
+        -
           name: name
           in: query
           description: Nome
@@ -380,21 +761,30 @@ paths:
       responses:
         '200':
           description: 'Atualiza uma especialidades'
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Especialidades
       summary: 'Deleta uma especialidades'
       description: 'Deleta uma especialidades'
       operationId: 129546f791893572810b5f9006c6de58
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID da Especialidade'
+          required: true
       responses:
         '200':
           description: 'Deleta uma especialidades'
+      security:
+        -
+          bearerAuth: []
 components:
   securitySchemes:
-    apiAuth:
-      type: http
-      description: 'Login with email and password to get the authentication token'
-      name: 'Token based Based'
+    bearerAuth:
+      type: apiKey
+      name: Authorization
       in: header
-      bearerFormat: JWT
-      scheme: bearer

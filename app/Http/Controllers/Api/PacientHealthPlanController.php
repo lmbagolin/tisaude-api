@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\HealthPlanCreateRequest;
-use App\Http\Requests\HealthPlanDeleteRequest;
-use App\Http\Requests\HealthPlanShowRequest;
-use App\Http\Requests\HealthPlanUpdateRequest;
-use App\Http\Resources\HealthPlanResource;
-use App\Models\HealthPlan;
-use App\Repositories\HealthPlanRepository;
+use App\Http\Requests\PacientHealthPlanCreateRequest;
+use App\Http\Requests\PacientHealthPlanDeleteRequest;
+use App\Http\Requests\PacientHealthPlanShowRequest;
+use App\Http\Requests\PacientHealthPlanUpdateRequest;
+use App\Http\Resources\PacientHealthPlanResource;
+use App\Models\PacientHealthPlan;
+use App\Repositories\PacientHealthPlanRepository;
 use Exception;
 use Illuminate\Http\Request;
 
-class HealthPlanController extends Controller
+class PacientHealthPlanController extends Controller
 {
-    protected $model = HealthPlan::class;
-    protected $resource = HealthPlanResource::class;
-    protected $repository = HealthPlanRepository::class;
+    protected $model = PacientHealthPlan::class;
+    protected $resource = PacientHealthPlanResource::class;
+    protected $repository = PacientHealthPlanRepository::class;
 
     public function __construct()
     {
@@ -26,11 +26,11 @@ class HealthPlanController extends Controller
 
     /**
      * @OA\Get(
-     *     tags={"Planos de Saúde"},
-     *     summary="Lista de Planos de Saúde",
-     *     description="Lista de Planos de Saúde",
-     *     path="/api/health-plans",
-     *     @OA\Response(response="200", description="Lista de Planos de Saúde"),
+     *     tags={"Planos de Saúde dos Pacientes"},
+     *     summary="Lista os Planos de Saúde dos Pacientes",
+     *     description="Lista Planos de Saúde dos Pacientes",
+     *     path="/api/pacients-health-plan",
+     *     @OA\Response(response="200", description="Lista Planos de Saúde dos Pacientes"),
      *     security={{"bearerAuth": {} }}
      * ),
      *
@@ -38,17 +38,17 @@ class HealthPlanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HealthPlanShowRequest $request)
+    public function index(PacientHealthPlanShowRequest $request)
     {
         return ($this->resource)::collectionRequest($request);
     }
 
     /**
      * @OA\Post(
-     *     tags={"Planos de Saúde"},
-     *     summary="Cria um novo Plano de Saúde",
-     *     description="Cria um novo Plano de Saúde",
-     *     path="/api/health-plans",
+     *     tags={"Planos de Saúde dos Pacientes"},
+     *     summary="Cria um Planos de Saúde para o Paciente",
+     *     description="Cria um Planos de Saúde para o Paciente",
+     *     path="/api/pacients-health-plan",
      *     @OA\Parameter(
      *         name="name",
      *         in="query",
@@ -57,7 +57,7 @@ class HealthPlanController extends Controller
      *     ),
      *     @OA\Response(
      *          response="200",
-     *          description="Cria um novo Plano de Saúde"
+     *          description="Criado com sucesso"
      *      ),
      *     security={{"bearerAuth": {} }}
      * ),
@@ -67,7 +67,7 @@ class HealthPlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(HealthPlanCreateRequest $request)
+    public function store(PacientHealthPlanCreateRequest $request)
     {
         $object = ($this->repository)::save($request);
         return new $this->resource($object);;
@@ -75,17 +75,17 @@ class HealthPlanController extends Controller
 
     /**
      * @OA\Get(
-     *     tags={"Planos de Saúde"},
-     *     summary="Exibe um Plano de Saúde",
-     *     description="Exibe um Plano de Saúde",
-     *     path="/api/health-plans/{id}",
+     *     tags={"Planos de Saúde dos Pacientes"},
+     *     summary="Lista o Plano de Saúde do Paciente",
+     *     description="Lista o Plano de Saúde do Paciente",
+     *     path="/api/pacients-health-plan/{id}",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID do Plano de Saúde",
+     *         description="ID",
      *         required=true,
      *     ),
-     *     @OA\Response(response="200", description="Exibe um Plano de Saúde"),
+     *     @OA\Response(response="200", description="Plano exibido"),
      *     security={{"bearerAuth": {} }}
      * ),
      *
@@ -94,7 +94,7 @@ class HealthPlanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(HealthPlanShowRequest $request, $id)
+    public function show(PacientHealthPlanShowRequest $request, $id)
     {
         $object = ($this->model)::findOrFail($id);
         return new $this->resource($object);;
@@ -102,23 +102,23 @@ class HealthPlanController extends Controller
 
     /**
      * @OA\Put(
-     *     tags={"Planos de Saúde"},
-     *     summary="Atualiza um Plano de Saúde",
-     *     description="Atualiza um Plano de Saúde",
-     *     path="/api/health-plans/{id}",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="ID do Plano de Saúde",
-     *         required=true,
-     *     ),
+     *     tags={"Planos de Saúde dos Pacientes"},
+     *     summary="Atualiza o Plano de Saúde do Paciente",
+     *     description="Atualiza o Plano de Saúde do Paciente",
+     *     path="/api/pacients-health-plan/{id}",
      *     @OA\Parameter(
      *         name="name",
      *         in="query",
      *         description="Nome",
      *         required=true,
      *     ),
-     *     @OA\Response(response="200", description="Atualiza um Plano de Saúde"),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID",
+     *         required=true,
+     *     ),
+     *     @OA\Response(response="200", description="Plano atualizado"),
      *     security={{"bearerAuth": {} }}
      * ),
      *
@@ -128,7 +128,7 @@ class HealthPlanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(HealthPlanUpdateRequest $request, $id)
+    public function update(PacientHealthPlanUpdateRequest $request, $id)
     {
         $object = ($this->repository)::save($request, $id);
         return new $this->resource($object);;
@@ -136,17 +136,17 @@ class HealthPlanController extends Controller
 
     /**
      * @OA\Delete(
-     *     tags={"Planos de Saúde"},
-     *     summary="Deleta um Plano de Saúde",
-     *     description="Deleta um Plano de Saúde",
-     *     path="/api/health-plans/{id}",
+     *     tags={"Planos de Saúde dos Pacientes"},
+     *     summary="Deleta o Plano de Saúde do Paciente",
+     *     description="Deleta o Plano de Saúde do Paciente",
+     *     path="/api/pacients-health-plan/{id}",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID do Plano de Saúde",
+     *         description="ID",
      *         required=true,
      *     ),
-     *     @OA\Response(response="200", description="Deleta um Plano de Saúde"),
+     *     @OA\Response(response="200", description="Plano deletado"),
      *     security={{"bearerAuth": {} }}
      * ),
      *
@@ -155,7 +155,7 @@ class HealthPlanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HealthPlanDeleteRequest $request, $id)
+    public function destroy(PacientHealthPlanDeleteRequest $request, $id)
     {
         try {
             $object = ($this->model)::findOrFail($id);

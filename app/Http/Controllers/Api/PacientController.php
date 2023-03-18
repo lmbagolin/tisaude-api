@@ -31,6 +31,7 @@ class PacientController extends Controller
      *     description="Lista de Pacientes",
      *     path="/api/pacients",
      *     @OA\Response(response="200", description="Lista de Pacientes"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Display a listing of the resource.
@@ -58,6 +59,7 @@ class PacientController extends Controller
      *          response="200",
      *          description="Cria um novo Paciente"
      *      ),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Store a newly created resource in storage.
@@ -77,7 +79,14 @@ class PacientController extends Controller
      *     summary="Exibe um Paciente",
      *     description="Exibe um Paciente",
      *     path="/api/pacients/{id}",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do Paciente",
+     *         required=true,
+     *     ),
      *     @OA\Response(response="200", description="Exibe um Paciente"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Display the specified resource.
@@ -98,12 +107,19 @@ class PacientController extends Controller
      *     description="Atualiza um Paciente",
      *     path="/api/pacients/{id}",
      *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do Paciente",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
      *         name="name",
      *         in="query",
      *         description="Nome",
      *         required=true,
      *     ),
      *     @OA\Response(response="200", description="Atualiza um Paciente"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Update the specified resource in storage.
@@ -124,7 +140,14 @@ class PacientController extends Controller
      *     summary="Deleta um Paciente",
      *     description="Deleta um Paciente",
      *     path="/api/pacients/{id}",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do Paciente",
+     *         required=true,
+     *     ),
      *     @OA\Response(response="200", description="Deleta um Paciente"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Remove the specified resource from storage.

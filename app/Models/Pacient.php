@@ -15,6 +15,8 @@ class Pacient extends Model
 
     protected $fillable = ['name', 'birthday', 'phones'];
 
+    protected $with = ['pacientHealthPlan'];
+
     protected $casts = [
         'name' => 'string',
         'birthday' => 'string',
@@ -33,5 +35,10 @@ class Pacient extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class, 'pacient_id');
+    }
+
+    public function pacientHealthPlan()
+    {
+        return $this->hasMany(PacientHealthPlan::class, 'pacient_id')->with('healthPlan');
     }
 }

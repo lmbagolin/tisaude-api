@@ -31,6 +31,7 @@ class SpecialtyController extends Controller
      *     description="Lista as especialidades",
      *     path="/api/specialties",
      *     @OA\Response(response="200", description="Lista as especialidades"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Display a listing of the resource.
@@ -58,6 +59,7 @@ class SpecialtyController extends Controller
      *          response="200",
      *          description="Cria uma nova especialidades"
      *      ),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Store a newly created resource in storage.
@@ -77,7 +79,14 @@ class SpecialtyController extends Controller
      *     summary="Lista uma especialidade",
      *     description="Lista uma especialidade",
      *     path="/api/specialties/{id}",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID da Especialidade",
+     *         required=true,
+     *     ),
      *     @OA\Response(response="200", description="Lista uma especialidade"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Display the specified resource.
@@ -98,12 +107,19 @@ class SpecialtyController extends Controller
      *     description="Atualiza uma especialidades",
      *     path="/api/specialties/{id}",
      *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID da Especialidade",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
      *         name="name",
      *         in="query",
      *         description="Nome",
      *         required=true,
      *     ),
      *     @OA\Response(response="200", description="Atualiza uma especialidades"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Update the specified resource in storage.
@@ -124,7 +140,14 @@ class SpecialtyController extends Controller
      *     summary="Deleta uma especialidades",
      *     description="Deleta uma especialidades",
      *     path="/api/specialties/{id}",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID da Especialidade",
+     *         required=true,
+     *     ),
      *     @OA\Response(response="200", description="Deleta uma especialidades"),
+     *     security={{"bearerAuth": {} }}
      * ),
      *
      * Remove the specified resource from storage.

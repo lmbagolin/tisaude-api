@@ -14,6 +14,7 @@ class Specialty extends Model
     protected $table = 'specialty';
 
     protected $fillable = ['name'];
+    protected $hidden = ['pivot'];
 
     protected $casts = [
         'name' => 'string',
@@ -25,4 +26,14 @@ class Specialty extends Model
     public static $rules = [
         'name' => 'required'
     ];
+
+    public function doctors()
+    {
+        return $this->belongsToMany(
+            Doctor::class,
+            'doctor_has_specialty',
+            'speciality_id',
+            'doctor_id',
+        );
+    }
 }

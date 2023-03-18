@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Pacient;
-
-class PacientCreateRequest extends FormRequest
+class PacientHealthPlanUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +11,6 @@ class PacientCreateRequest extends FormRequest
      */
     public function authorize()
     {
-
         return true;
     }
 
@@ -24,8 +21,7 @@ class PacientCreateRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Pacient::$rules;
-
+        $rules = [];
         return $rules;
     }
 }

@@ -27,6 +27,8 @@ class CreatePacientHealthPlanTable extends Migration
 
             $table->foreign('pacient_id')->references('id')->on('pacient');
             $table->foreign('health_plan_id')->references('id')->on('health_plan');
+
+            $table->unique(['pacient_id', 'health_plan_id']);
         });
     }
 

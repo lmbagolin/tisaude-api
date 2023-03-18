@@ -14,9 +14,11 @@ class Doctor extends Model
     protected $table = 'doctor';
 
     protected $fillable = ['name', 'crm'];
+    protected $with = ['specialties'];
+    protected $hidden = ['pivot'];
 
     protected $casts = [
-        'name' => 'string', 
+        'name' => 'string',
         'crm' => 'string',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -26,4 +28,23 @@ class Doctor extends Model
     public static $rules = [
         'name' => 'required'
     ];
+
+    public function specialties()
+    {
+        return $this->belongsToMany(
+            Specialty::class,
+            'doctor_has_specialty',
+            'doctor_id',
+            'speciality_id'
+        );
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(
+            Appointment::class,
+            'doctor_id',
+            'id'
+        );
+    }
 }

@@ -36,19 +36,20 @@ class AuthController extends Controller
      *     @OA\Parameter(
      *         name="email",
      *         in="query",
-     *         description="E-mail de credencial de acesso",
+     *         description="E-mail de credencial de acesso (user@tisaude.com.br)",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="password",
      *         in="query",
-     *         description="Senha de credencial de acesso",
+     *         description="Senha de credencial de acesso (tisaude123@)",
      *         required=true,
      *     ),
      *     @OA\Response(
      *          response="200",
      *          description="Retorna informaçõs do usuário e o TOKEN de acesso"
      *      ),
+     *     security={{"bearerAuth": {} }}
      * ),
      * Get a JWT via given credentials.
      *

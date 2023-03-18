@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Appointment;
+use App\Models\PacientHealthPlan;
 use App\Rules\CompositeUnique;
-use Illuminate\Support\Facades\DB;
 
-class AppointmentCreateRequest extends FormRequest
+class PacientHealthPlanCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +24,13 @@ class AppointmentCreateRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Appointment::$rules;
+        $rules = PacientHealthPlan::$rules;
 
-        $dateRule = new CompositeUnique('appointment', [
+        $rules['pacient_id'] = ['required', new CompositeUnique('pacient_health_plan', [
             'pacient_id' => $this->input('pacient_id'),
-            'date' => DB::raw("DATE_FORMAT('" . $this->input('date') . "', '%Y-%m-%d')")
-        ]);
-        $dateRule->customMessage = "The patient already has an appointment on the scheduled date.";
+            'health_plan_id' => $this->input('health_plan_id')
+        ])];
 
-        $rules['date'][] = $dateRule;
         return $rules;
     }
 }

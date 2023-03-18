@@ -15,6 +15,8 @@ class Appointment extends Model
 
     protected $fillable = ['pacient_id', 'doctor_id', 'pacient_health_plan_id', 'date', 'is_private'];
 
+    protected $with = ['pacient', 'doctor', 'pacientHealthPlan', 'procedures'];
+
     protected $casts = [
         'pacient_id' => 'integer',
         'doctor_id' => 'integer',
@@ -29,6 +31,31 @@ class Appointment extends Model
     public static $rules = [
         'pacient_id' => 'required',
         'doctor_id' => 'required',
-        'date' => 'required'
+        'date' => ['required', 'date']
     ];
+
+    public function pacient()
+    {
+        return $this->hasOne(Pacient::class, 'id', 'pacient_id');
+    }
+
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
+    }
+
+    public function pacientHealthPlan()
+    {
+        return $this->hasOne(PacientHealthPlan::class, 'id', 'pacient_health_plan_id');
+    }
+
+    public function procedures()
+    {
+        return $this->belongsToMany(
+            Procedure::class,
+            'appointment_has_procedure',
+            'appointment_id',
+            'procedure_id'
+        );
+    }
 }

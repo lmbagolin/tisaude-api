@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Pacient;
+use App\Models\Doctor;
 
-class PacientCreateRequest extends FormRequest
+class DoctorAddSpecialtyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,6 @@ class PacientCreateRequest extends FormRequest
      */
     public function authorize()
     {
-
         return true;
     }
 
@@ -24,8 +23,9 @@ class PacientCreateRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Pacient::$rules;
-
+        $rules = [
+            'specialty_ids' => 'array|required'
+        ];
         return $rules;
     }
 }

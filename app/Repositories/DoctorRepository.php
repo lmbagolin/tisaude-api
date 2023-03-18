@@ -34,10 +34,18 @@ class DoctorRepository implements InterfaceRepository
                 $object = self::create($attributes);
             }
         } catch (Exception $e) {
-            throw new HttpResponseException(response()->json([                
+            throw new HttpResponseException(response()->json([
                 'message' => $e->getMessage()
             ], 400));
         }
+        return $object;
+    }
+
+    public static function addSpecialties(Request $request, $id)
+    {
+        $object = (self::$model)::findOrFail($id);
+        $object->specialties()->syncWithoutDetaching($request->input('specialty_ids'));
+        $object->refresh();
         return $object;
     }
 }

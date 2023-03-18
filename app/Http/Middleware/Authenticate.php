@@ -8,13 +8,10 @@ class Authenticate extends Middleware
 {
     /**
      * @OA\SecurityScheme(
-     *     type="http",
-     *     description="Login with email and password to get the authentication token",
-     *     name="Token based Based",
+     *     type="apiKey",
+     *     name="Authorization",
      *     in="header",
-     *     scheme="bearer",
-     *     bearerFormat="JWT",
-     *     securityScheme="apiAuth",
+     *     securityScheme="bearerAuth",
      * )
      *
      * Get the path the user should be redirected to when they are not authenticated.
