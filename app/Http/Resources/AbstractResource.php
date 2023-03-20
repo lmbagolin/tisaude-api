@@ -26,9 +26,8 @@ abstract class AbstractResource extends JsonResource
     public static function collectionRequest(Request $request)
     {
         $query = self::query($request);
-
         $resource = $query->paginate($request->input('per_page', 15));
-        return self::collection($resource->withQueryString());
+        return self::collection($resource);
     }
 
     protected static function query(Request $request)
