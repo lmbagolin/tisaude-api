@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Appointment extends Model
 {
@@ -57,5 +58,24 @@ class Appointment extends Model
             'appointment_id',
             'procedure_id'
         );
+    }
+
+    public function scopePacients(Builder $query): Builder
+    {
+        $query->join('pacient', 'pacient.id', '=', 'appointment.pacient_id');
+        return $query;
+    }
+
+    public function scopeDoctors(Builder $query): Builder
+    {
+        $query->join('doctor', 'doctor.id', '=', 'appointment.doctor_id');
+        return $query;
+    }
+
+    public function scopeProcedures(Builder $query): Builder
+    {
+        $query->leftJoin('appointment_has_procedure', 'appointment_has_procedure.appointment_id', '=', 'appointment.id');
+        $query->leftJoin('procedure', 'appointment_has_procedure.procedure_id', '=', 'procedure.id');
+        return $query;
     }
 }

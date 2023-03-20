@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Doctor;
+use App\Models\Specialty;
 
 class DoctorResource extends AbstractResource
 {
@@ -18,5 +19,12 @@ class DoctorResource extends AbstractResource
     public static function attribsSearch(): array
     {
         return self::$attribsSearch;
+    }
+
+    public static function scopes()
+    {
+        return [
+            Specialty::class => 'specialtys'
+        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -50,35 +51,11 @@ abstract class AbstractResource extends JsonResource
             });
         }
 
-        foreach ($request->all() as $key => $value) {
-
-            if (in_array($key, $attribs)) {
-                $attribsTypes = "";
-                if (!substr_count($key, ".")) {
-                    try {
-                        if (isset($casts[$key])) {
-                            $attribsTypes = $casts[$key];
-                        } else {
-                            $attribsTypes = Schema::getColumnType($table_name, $key);
-                        }
-                    } catch (Exception $e) {
-                        //ignore
-                    }
-                }
-
-                $key = $table_name . "." . $key;
-                switch ($attribsTypes) {
-                    case 'bigint';
-                    case 'int';
-                    case 'integer';
-                        $query->where($key, 'like', $value);
-                        break;
-                    default:
-                        $query->where($key, 'like', '%' . $value . '%');
-                        break;
-                }
-            }
-        }
+        /**
+         * Apply the conditions in the query according to the parameters established in the request
+         */
+        $query = self::setSearchAttributesTable($query, $request, $model, true);
+        self::setScopes($query, $request);
 
         if ($request->has('orderBy')) {
             if ($request->input('orderBy') == 'rand') {
@@ -109,6 +86,23 @@ abstract class AbstractResource extends JsonResource
         return parent::toArray($request);
     }
 
+    protected function setScopes(Builder $query, $request)
+    {
+        $scopes = static::scopes();
+        if (count($scopes)) {
+            foreach ($scopes as $class_name => $method) {
+                $query->{$method}();
+                $query = self::setSearchAttributesTable($query, $request, $class_name);
+            }
+        }
+        return $query;
+    }
+
+    public static function scopes()
+    {
+        return [];
+    }
+
     public static function isJoined($query, $table)
     {
         $joins = collect($query->getQuery()->joins);
@@ -119,5 +113,50 @@ abstract class AbstractResource extends JsonResource
     {
         $addSlashes = str_replace('?', "'?'", $query->toSql());
         return vsprintf(str_replace('?', '%s', $addSlashes), $query->getBindings());
+    }
+
+    protected static function setSearchAttributesTable(Builder $query, Request $request, $class_name, $is_default = false)
+    {
+        $table_name = (new $class_name)->getTable();
+        $attribs = Schema::getColumnListing($table_name);
+        $casts = (new $class_name)->getCasts();
+
+        foreach ($request->all() as $key => $value) {
+            if (!substr_count($key, "_") && !$is_default) {
+                continue;
+            } else if (!substr_count($key, "_") && $is_default) {
+                $info_key[0] = $table_name;
+                $info_key[1] = $key;
+            } else {
+                $info_key = explode('_', $key);
+                if ($info_key[0] != $table_name) {
+                    continue;
+                }
+            }
+            $column = $info_key[1];
+
+
+            if (in_array($column, $attribs)) {
+                $attribsTypes = "";
+                try {
+                    $attribsTypes = $casts[$column];
+                } catch (Exception $e) {
+                    //ignore
+                }
+
+                switch ($attribsTypes) {
+                    case 'bigint';
+                    case 'int';
+                    case 'integer';
+                        $query->where($table_name . "." . $column, 'like', $value);
+                        break;
+                    default:
+                        $query->where($table_name . "." . $column, 'like', '%' . $value . '%');
+                        break;
+                }
+            }
+        }
+
+        return $query;
     }
 }
